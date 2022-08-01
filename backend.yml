@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: student-api
-        image: public.ecr.aws/m0i9d1h3/frontend:l2
+        image: public.ecr.aws/f1g3v6s5/sid-backend:latest
         env:
          - name: PORT
            value: "5000"
