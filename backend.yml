@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-api
+  labels:
+    app: student-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-api
+  template:
+    metadata:
+      labels:
+        app: student-api
+    spec:
+      containers:
+      - name: student-api
+        image: public.ecr.aws/m0i9d1h3/frontend:l2
+        env:
+         - name: PORT
+           value: "5000"
+         - name: PG_HOST
+           value: postgres-service
+         - name: PG_PORT
+           value: "5432"
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-api-service
+spec:
+  selector:
+    app: student-api
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
