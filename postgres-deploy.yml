@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-db
+  labels:
+    app: postgres-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-db
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+        - name: postgres-db
+          image: 012765396827.dkr.ecr.ap-south-1.amazonaws.com/ecr:latest
+          ports:
+            - containerPort: 5432
+      imagePullSecrets:
+        - name: mykey
